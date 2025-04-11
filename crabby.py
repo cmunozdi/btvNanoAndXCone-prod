@@ -91,6 +91,7 @@ if args.make:
         else:
             request_name = dataset_name[:90] + rnd_str(8, dataset_name)
 
+        out_xcone_file_name = card['campaign']['config'].replace('NANO', 'XCone').replace('.py', '.root')
         verbatim_lines = []
         card_info = {
             '_requestName_': request_name,
@@ -101,15 +102,18 @@ if args.make:
             '_storageSite_': card['campaign']['storageSite'],
             '_publication_': str(card['campaign']['publication']),
             '_splitting_': 'LumiBased' if card['campaign']['data'] else "Automatic",
+            '_postprocess_': 'postprocess_data.sh' if card['campaign']['data'] else "postprocess_mc.sh",
+
             '_outputDatasetTag_': tag, 
+            '_outXConeFileName_': out_xcone_file_name,
         }
         
         if args.test:
-            verbatim_lines.append("config.Data.totalUnits = 1")
+            verbatim_lines.append("config.Data.totalUnits = 10")
             card_info['_publication_'] = 'False'
 
         if card['campaign']['data']:
-            verbatim_lines.append("config.Data.unitsPerJob = 50")
+            verbatim_lines.append("config.Data.unitsPerJob = 1")
             verbatim_lines.append("config.JobType.maxJobRuntimeMin = 2750")
         if card['campaign']['data'] and card['campaign']['lumiMask'] is not None:
             verbatim_lines.append("config.Data.lumiMask = '{}'".format(card['campaign']['lumiMask']))
