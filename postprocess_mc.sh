@@ -35,7 +35,7 @@ cd -
 # scram tool info fastjet-contrib || echo "fastjet-contrib not found or not configured properly."
 
 echo "Running cmsRun to generate NANO.root"
-cmsRun -j FrameworkJobReport.xml PSet.py #data_2023_22Sep2023_NANO.py > cmsRun.log 2>&1 #PSet.py #
+cmsRun -j FrameworkJobReport.xml  PSet.py #./btvNanoAndXCone-prod/MC_allPF_2023_preBPix_NANO.py
 # cmsRun -j FrameworkJobReport.xml -p data_2023_22Sep2023_NANO.py #PSet.py #
 
 # Search for the output NANOAODSIM file from cmsRun using CRAB_localOutputFiles
@@ -57,12 +57,7 @@ fi
 
 echo "NANO file found: $NANO_FILE"
 
-# Mover ek archivo NANO a un directorio temporal
-# TEMP_DIR=$(mktemp -d)
-# mv "$NANO_FILE" "$TEMP_DIR"
 NANO_FILE_BASENAME=$(basename "$NANO_FILE")
-# NANO_FILE="$TEMP_DIR/$NANO_FILE_BASENAME"
-
 # Derivate the output file name for XConeReclustering
 XCONE_OUTPUT_FILE=$(echo "$NANO_FILE_BASENAME" | sed 's/NANO/XCone/')
 
@@ -71,7 +66,37 @@ echo "XCone output file will be: $XCONE_OUTPUT_FILE"
 
 # Executes the reclustering with XCone
 python3 ProcessNanoToBoostedTopQuarkWithXCone.py --input "$NANO_FILE" --output "$XCONE_OUTPUT_FILE" --isMC
-# python3 $CMSSW_BASE/src/XConeReclustering/ProcessNanoToBoostedTopQuarkWithXCone.py --input "$NANO_FILE" --output "$XCONE_OUTPUT_FILE" #--isMC
+
+# Derivate output file name with runs tree
+RUNS_OUTPUT_FILE="${XCONE_OUTPUT_FILE/.root/_runs.root}"
+echo "Runs output file is: $RUNS_OUTPUT_FILE"
+
+# Derivate output file name with Luminosity Blocks tree
+LUMI_OUTPUT_FILE="${XCONE_OUTPUT_FILE/.root/_lumi.root}"
+echo "Luminosity Blocks output file is: $LUMI_OUTPUT_FILE"
+
+# Verify both output files exist
+if [ ! -f "$XCONE_OUTPUT_FILE" ]; then
+    echo "ERROR: XCone output file $XCONE_OUTPUT_FILE not found!"
+    exit 1
+fi
+if [ ! -f "$RUNS_OUTPUT_FILE" ]; then
+    echo "ERROR: Runs output file $RUNS_OUTPUT_FILE not found!"
+    exit 1
+fi
+if [ ! -f "$LUMI_OUTPUT_FILE" ]; then
+    echo "ERROR: Luminosity Blocks output file $LUMI_OUTPUT_FILE not found!"
+    exit 1
+fi
+
+# Merge the XCone output file with the runs tree
+FINAL_OUTPUT_FILE="final_${XCONE_OUTPUT_FILE}"
+echo "Final output file will be: $FINAL_OUTPUT_FILE"
+hadd -f "$FINAL_OUTPUT_FILE" "$XCONE_OUTPUT_FILE" "$RUNS_OUTPUT_FILE" "$LUMI_OUTPUT_FILE"
+
+# Replace the original file with the merged one
+mv "$FINAL_OUTPUT_FILE" "$XCONE_OUTPUT_FILE"
+rm -f "$RUNS_OUTPUT_FILE" "$LUMI_OUTPUT_FILE"
 
 # Delete intermediate files
 # rm -f $NANO_FILE

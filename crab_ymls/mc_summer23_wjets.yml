@@ -5,7 +5,7 @@ campaign:
   # User specific
   workArea: mc_summer23_wjets
   storageSite: T3_CH_CERNBOX
-  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2023preBPix
+  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2023preBPix/WJets
   voGroup: null # or leave empty
 
   # Campaign specific

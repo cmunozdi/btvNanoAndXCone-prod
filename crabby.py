@@ -109,12 +109,14 @@ if args.make:
         }
         
         if args.test:
-            verbatim_lines.append("config.Data.totalUnits = 10")
+            verbatim_lines.append("config.Data.totalUnits = 100")
             card_info['_publication_'] = 'False'
 
         if card['campaign']['data']:
-            verbatim_lines.append("config.Data.unitsPerJob = 1")
+            verbatim_lines.append("config.Data.unitsPerJob = 10")
             verbatim_lines.append("config.JobType.maxJobRuntimeMin = 2750")
+        # if not card['campaign']['data']:
+        #     verbatim_lines.append("config.Data.unitsPerJob = 10")
         if card['campaign']['data'] and card['campaign']['lumiMask'] is not None:
             verbatim_lines.append("config.Data.lumiMask = '{}'".format(card['campaign']['lumiMask']))
         if card['campaign']['voGroup'] is not None:

@@ -10,7 +10,7 @@ config.JobType.pluginName = 'Analysis'
 config.JobType.disableAutomaticOutputCollection = True #This avoids to copy the output file from cmsRun to the crab output directory, although it is generated in the specific job crab workdir
 config.JobType.psetName = '_psetName_'
 config.JobType.maxMemoryMB = 5000 
-config.JobType.numCores = 4
+config.JobType.numCores = 8
 config.JobType.allowUndistributedCMSSW = True
 
 cmssw_base = os.environ['CMSSW_BASE']
@@ -21,7 +21,8 @@ config.JobType.inputFiles = [
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark.h',
                                 f'{cmssw_base}/src/XConeReclustering/deltaPhi.h',
                                 f'{cmssw_base}/src/XConeReclustering/deltaR.h',
-                                f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark.cc'
+                                f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark.cpp',
+                                f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark.so',
                             ]
 config.JobType.outputFiles = ['_outXConeFileName_']
 

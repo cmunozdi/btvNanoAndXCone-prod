@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: data_allPF_2023_22Sep2023 --data --eventcontent NANOAOD --datatier NANOAOD --conditions 140X_dataRun3_v17 --step NANO --nThreads 4 --era Run3,run3_nanoAOD_pre142X --filein /store/data/Run2023C/Muon1/MINIAOD/22Sep2023_v4-v2/2820000/005388fb-2ad7-4b4f-959c-8421695ea204.root -n 100 --customise PhysicsTools/NanoAOD/custom_btv_cff.BTVCustomNanoAOD_allPF --no_exec
+# with command line options: data_allPF_2023_22Sep2023 --data --eventcontent NANOAOD --datatier NANOAOD --conditions 140X_dataRun3_v17 --step NANO --nThreads 4 --era Run3,run3_nanoAOD_pre142X --filein /store/data/Run2023C/Muon1/MINIAOD/22Sep2023_v4-v2/2820000/005388fb-2ad7-4b4f-959c-8421695ea204.root -n 100 --customise PhysicsTools/NanoAOD/custom_btv_cff.BTVCustomNanoAOD_allPF --no_exec --customise_commands process.genWeightsTable.keepAllPSWeights=True
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
@@ -101,7 +101,7 @@ from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 
 #Setup FWK for multithreaded
-process.options.numberOfThreads = 4
+process.options.numberOfThreads = 8
 process.options.numberOfStreams = 0
 
 # customisation of the process.
@@ -123,6 +123,7 @@ process = nanoAOD_customizeCommon(process)
 
 # Customisation from command line
 
+process.genWeightsTable.keepAllPSWeights=True
 # Add early deletion of temporary data products to reduce peak memory need
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)

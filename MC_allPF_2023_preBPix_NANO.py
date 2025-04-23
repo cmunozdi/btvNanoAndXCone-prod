@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: MC_allPF_2023_preBPix --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions auto:phase1_2023_realistic --step NANO --nThreads 4 --era Run3,run3_nanoAOD_pre142X --filein /store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0092e4e1-8cb2-4c2f-b57a-4fa2f42a517f.root -n 100 --customise PhysicsTools/NanoAOD/custom_btv_cff.BTVCustomNanoAOD_allPF --no_exec
+# with command line options: MC_allPF_2023_preBPix --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions auto:phase1_2023_realistic --step NANO --nThreads 4 --era Run3,run3_nanoAOD_pre142X --filein /store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0092e4e1-8cb2-4c2f-b57a-4fa2f42a517f.root -n 100 --customise PhysicsTools/NanoAOD/custom_btv_cff.BTVCustomNanoAOD_allPF --no_exec --customise_commands process.genWeightsTable.keepAllPSWeights=True
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
@@ -23,7 +23,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100),
+    input = cms.untracked.int32(10000),
     output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
 )
 
@@ -102,7 +102,7 @@ from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 
 #Setup FWK for multithreaded
-process.options.numberOfThreads = 4
+process.options.numberOfThreads = 8
 process.options.numberOfStreams = 0
 
 # customisation of the process.
@@ -124,6 +124,7 @@ process = nanoAOD_customizeCommon(process)
 
 # Customisation from command line
 
+process.genWeightsTable.keepAllPSWeights=True
 # Add early deletion of temporary data products to reduce peak memory need
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)
