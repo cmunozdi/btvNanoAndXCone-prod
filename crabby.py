@@ -101,7 +101,7 @@ if args.make:
             '_outLFNDirBase_': card['campaign']['outLFNDirBase'],
             '_storageSite_': card['campaign']['storageSite'],
             '_publication_': str(card['campaign']['publication']),
-            '_splitting_': 'LumiBased' if card['campaign']['data'] else "Automatic",
+            '_splitting_': 'LumiBased' if card['campaign']['data'] else "FileBased" if args.test else "Automatic",
             '_postprocess_': 'postprocess_data.sh' if card['campaign']['data'] else "postprocess_mc.sh",
 
             '_outputDatasetTag_': tag, 
@@ -111,9 +111,11 @@ if args.make:
         if args.test:
             verbatim_lines.append("config.Data.totalUnits = 100")
             card_info['_publication_'] = 'False'
+            if not card['campaign']['data']:
+                verbatim_lines.append("config.Data.unitsPerJob=3")
 
         if card['campaign']['data']:
-            verbatim_lines.append("config.Data.unitsPerJob = 10")
+            verbatim_lines.append("config.Data.unitsPerJob = 20")
             verbatim_lines.append("config.JobType.maxJobRuntimeMin = 2750")
         # if not card['campaign']['data']:
         #     verbatim_lines.append("config.Data.unitsPerJob = 10")

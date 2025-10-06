@@ -3,9 +3,9 @@ campaign:
   crab_template: template_crab.py
 
   # User specific
-  workArea: data_2023_Muon
+  workArea: CRAB_2023preBPix_XCone_RecoAndGen_2dCut30_15JetPtThres_noLepVeto/data_2023_Muon
   storageSite: T3_CH_CERNBOX
-  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/data/2023preBPix
+  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/data/2023preBPix_15JetPtThres #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/Data/2023preBPix #/store/user/cmunozdi/AnalysisSamples/data/2023preBPix
   voGroup: null # or leave empty
 
   # Campaign specific

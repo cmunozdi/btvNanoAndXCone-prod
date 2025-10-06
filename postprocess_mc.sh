@@ -21,11 +21,17 @@ cd $CMSSW_BASE
 echo pwd
 # Capturar la salida de scram tool info fastjet-contrib
 FJC_INFO=$(scram tool info fastjet-contrib)
+corrlib_INFO=$(scram tool info correctionlib)
 
 # Extraer las rutas necesarias
 export FASTJET_CONTRIB_BASE=$(echo "$FJC_INFO" | grep "FASTJET_CONTRIB_BASE" | cut -d '=' -f 2)
 export CPLUS_INCLUDE_PATH=$FASTJET_CONTRIB_BASE/include:$CPLUS_INCLUDE_PATH
 export LD_LIBRARY_PATH=$FASTJET_CONTRIB_BASE/lib:$LD_LIBRARY_PATH
+
+export CORRLIB_BASE=$(echo "$corrlib_INFO" | grep "CORRECTIONLIB_BASE" | cut -d '=' -f 2)
+export CPLUS_INCLUDE_PATH=$(echo "$corrlib_INFO" | grep "INCLUDE" | cut -d '=' -f 2):$CPLUS_INCLUDE_PATH
+export LD_LIBRARY_PATH=$(echo "$corrlib_INFO" | grep "LIBDIR" | cut -d '=' -f 2):$LD_LIBRARY_PATH
+export PATH=$(echo "$corrlib_INFO" | grep "PATH" | cut -d '=' -f 2):$PATH
 
 # Regresar al directorio original
 cd -
@@ -35,7 +41,7 @@ cd -
 # scram tool info fastjet-contrib || echo "fastjet-contrib not found or not configured properly."
 
 echo "Running cmsRun to generate NANO.root"
-cmsRun -j FrameworkJobReport.xml  PSet.py #./btvNanoAndXCone-prod/MC_allPF_2023_preBPix_NANO.py
+cmsRun -j FrameworkJobReport.xml PSet.py #./btvNanoAndXCone-prod/MC_allPF_2023_preBPix_NANO.py #PSet.py
 # cmsRun -j FrameworkJobReport.xml -p data_2023_22Sep2023_NANO.py #PSet.py #
 
 # Search for the output NANOAODSIM file from cmsRun using CRAB_localOutputFiles
@@ -67,36 +73,36 @@ echo "XCone output file will be: $XCONE_OUTPUT_FILE"
 # Executes the reclustering with XCone
 python3 ProcessNanoToBoostedTopQuarkWithXCone.py --input "$NANO_FILE" --output "$XCONE_OUTPUT_FILE" --isMC
 
-# Derivate output file name with runs tree
-RUNS_OUTPUT_FILE="${XCONE_OUTPUT_FILE/.root/_runs.root}"
-echo "Runs output file is: $RUNS_OUTPUT_FILE"
+# # Derivate output file name with runs tree
+# RUNS_OUTPUT_FILE="${XCONE_OUTPUT_FILE/.root/_runs.root}"
+# echo "Runs output file is: $RUNS_OUTPUT_FILE"
 
-# Derivate output file name with Luminosity Blocks tree
-LUMI_OUTPUT_FILE="${XCONE_OUTPUT_FILE/.root/_lumi.root}"
-echo "Luminosity Blocks output file is: $LUMI_OUTPUT_FILE"
+# # Derivate output file name with Luminosity Blocks tree
+# LUMI_OUTPUT_FILE="${XCONE_OUTPUT_FILE/.root/_lumi.root}"
+# echo "Luminosity Blocks output file is: $LUMI_OUTPUT_FILE"
 
-# Verify both output files exist
-if [ ! -f "$XCONE_OUTPUT_FILE" ]; then
-    echo "ERROR: XCone output file $XCONE_OUTPUT_FILE not found!"
-    exit 1
-fi
-if [ ! -f "$RUNS_OUTPUT_FILE" ]; then
-    echo "ERROR: Runs output file $RUNS_OUTPUT_FILE not found!"
-    exit 1
-fi
-if [ ! -f "$LUMI_OUTPUT_FILE" ]; then
-    echo "ERROR: Luminosity Blocks output file $LUMI_OUTPUT_FILE not found!"
-    exit 1
-fi
+# # Verify both output files exist
+# if [ ! -f "$XCONE_OUTPUT_FILE" ]; then
+#     echo "ERROR: XCone output file $XCONE_OUTPUT_FILE not found!"
+#     exit 1
+# fi
+# if [ ! -f "$RUNS_OUTPUT_FILE" ]; then
+#     echo "ERROR: Runs output file $RUNS_OUTPUT_FILE not found!"
+#     exit 1
+# fi
+# if [ ! -f "$LUMI_OUTPUT_FILE" ]; then
+#     echo "ERROR: Luminosity Blocks output file $LUMI_OUTPUT_FILE not found!"
+#     exit 1
+# fi
 
-# Merge the XCone output file with the runs tree
-FINAL_OUTPUT_FILE="final_${XCONE_OUTPUT_FILE}"
-echo "Final output file will be: $FINAL_OUTPUT_FILE"
-hadd -f "$FINAL_OUTPUT_FILE" "$XCONE_OUTPUT_FILE" "$RUNS_OUTPUT_FILE" "$LUMI_OUTPUT_FILE"
+# # Merge the XCone output file with the runs tree
+# FINAL_OUTPUT_FILE="final_${XCONE_OUTPUT_FILE}"
+# echo "Final output file will be: $FINAL_OUTPUT_FILE"
+# hadd -f "$FINAL_OUTPUT_FILE" "$XCONE_OUTPUT_FILE" "$RUNS_OUTPUT_FILE" "$LUMI_OUTPUT_FILE"
 
-# Replace the original file with the merged one
-mv "$FINAL_OUTPUT_FILE" "$XCONE_OUTPUT_FILE"
-rm -f "$RUNS_OUTPUT_FILE" "$LUMI_OUTPUT_FILE"
+# # Replace the original file with the merged one
+# mv "$FINAL_OUTPUT_FILE" "$XCONE_OUTPUT_FILE"
+# rm -f "$RUNS_OUTPUT_FILE" "$LUMI_OUTPUT_FILE"
 
 # Delete intermediate files
 # rm -f $NANO_FILE
