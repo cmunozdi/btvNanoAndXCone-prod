@@ -25,9 +25,9 @@ config.JobType.inputFiles = [
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark.so',
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark_Dict_rdict.pcm',
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark_Dict.cpp',
-                                f'{cmssw_base}/src/XConeReclustering/2023jec/jet_jerc.json.gz',
-                                f'{cmssw_base}/src/XConeReclustering/2023btag/btag_efficiencies_combined.json',
-                                f'{cmssw_base}/src/XConeReclustering/2023btag/btagging.json.gz',
+                                f'{cmssw_base}/src/XConeReclustering/2024jec/jet_jerc.json.gz',
+                                f'{cmssw_base}/src/XConeReclustering/2024btag/btag_efficiencies_combined.json',
+                                f'{cmssw_base}/src/XConeReclustering/2024btag/btagging.json.gz',
                             ]
 config.JobType.outputFiles = ['_outXConeFileName_']
 

@@ -79,7 +79,7 @@ process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('/eos/project/r/rtu-topanalysis/cmunozdi/data_allPF_2024_NANO.root'),
+    fileName = cms.untracked.string('data_allPF_2024_NANO.root'),
     outputCommands = process.NANOAODEventContent.outputCommands
 )
 
