@@ -25,9 +25,10 @@ config.JobType.inputFiles = [
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark.so',
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark_Dict_rdict.pcm',
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark_Dict.cpp',
-                                f'{cmssw_base}/src/XConeReclustering/2023jec/jet_jerc.json.gz',
-                                f'{cmssw_base}/src/XConeReclustering/2023btag/btag_efficiencies_combined.json',
-                                f'{cmssw_base}/src/XConeReclustering/2023btag/btagging.json.gz',
+                                # '/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22EFGSep23-Summer22EE-NanoAODv12/2025-10-07/jet_jerc.json.gz',
+                                #f'{cmssw_base}/src/XConeReclustering/2023jec/jet_jerc.json.gz',
+                                # f'{cmssw_base}/src/XConeReclustering/2023btag/btag_efficiencies_combined.json',
+                                # f'{cmssw_base}/src/XConeReclustering/2023btag/btagging.json.gz',
                             ]
 config.JobType.outputFiles = ['_outXConeFileName_']
 

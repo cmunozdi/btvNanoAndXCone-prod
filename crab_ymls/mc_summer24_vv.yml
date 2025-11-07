@@ -1,31 +1,28 @@
 campaign:
-  name: data_2022_Muon
+  name: mc_summer24_vv
   crab_template: template_crab.py
 
   # User specific
-  workArea: CRAB_2022post_XCone_RecoAndGen_2dCut30_noLepVeto_full/data_2022_Muon
+  workArea: CRAB_2024_XCone_RecoAndGen_2dCut30_noLepVeto_full/mc_summer24_vv
   storageSite: T3_CH_CERNBOX
-  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/data/2022post
+  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2024/VV #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/MC/2023preBPix/VV
   voGroup: null # or leave empty
 
   # Campaign specific
-  tag_extension: BTV_Run3_2022_Comm_MINIAODv4 # Will get appended after the current tag
+  tag_extension: BTV_Run3_2024_Comm_MINIAODv6 # Will get appended after the current tag
   tag_mod: # Will modify name in-place for MC eg. "PFNanoAODv1" will replace MiniAODv2 -> PFNanoAODv1
   # If others shall be able to access dataset via DAS (important when collaborating for commissioning!)
   publication: True
-  config: data_allPF_2022_post_NANO.py
+  config: MC_allPF_2024_NANO.py
   # Specify if running on data
-  data: True
-  lumiMask: jsons/Cert_Collisions2022_355100_362760_Golden.json 
+  data: False
+  lumiMask:  
   # datasets will take either a list of DAS names or a text file containing them
   # do NOT submit too many tasks at the same time, despite it looking more convenient to you
   # wait for tasks to finish before submitting entire campaigns,
   # it's better to request one dataset at a time (taking fairshare into account)
+  #651, 318, 65 files
   datasets: |
-    # /SingleMuon/Run2022C-22Sep2023-v1/MINIAOD
-    # /Muon/Run2022C-18Sep2023-v3/MINIAOD
-    # /Muon/Run2022C-22Sep2023-v1/MINIAOD
-    # /Muon/Run2022D-22Sep2023-v1/MINIAOD
-    # /Muon/Run2022E-22Sep2023-v1/MINIAOD
-    # /Muon/Run2022F-22Sep2023-v2/MINIAOD
-    /Muon/Run2022G-22Sep2023-v1/MINIAOD
+    /WW_TuneCP5_13p6TeV_pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+    /WZ_TuneCP5_13p6TeV_pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+    # /ZZ_TuneCP5_13p6TeV_pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
