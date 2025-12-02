@@ -3,9 +3,9 @@ campaign:
   crab_template: template_crab.py
 
   # User specific
-  workArea: CRAB_2023preBPix_XCone_RecoAndGen_2dCut30_noLepVeto_full/mc_summer23_ttbar
+  workArea: CRAB_2023preBPix_XCone_RecoAndGen/mc_summer23_ttbar
   storageSite: T3_CH_CERNBOX
-  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2023preBPix_noLepVeto/TTbar #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/MC/2023preBPix/TTbar 
+  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2023preBPix_version4Debug/TTbar #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/MC/2023preBPix/TTbar 
   voGroup: null # or leave empty
 
   # Campaign specific
@@ -23,8 +23,8 @@ campaign:
   # it's better to request one dataset at a time (taking fairshare into account)
   # COMMENT ON BRANCHING RATIOS: we have to multiply them by 2*3*0.1086*0.6741 (because there are 2 W, and we consider semi-leptonic decay)
   datasets: |
-    # /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
-    # /TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
-    /TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
+    /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
+    /TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
+    # /TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
     # /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
     # /TTtoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM

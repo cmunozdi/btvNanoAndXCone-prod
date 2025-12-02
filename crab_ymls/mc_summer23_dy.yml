@@ -3,9 +3,9 @@ campaign:
   crab_template: template_crab.py
 
   # User specific
-  workArea: CRAB_2023preBPix_XCone_RecoAndGen_2dCut30_noLepVeto_full/mc_summer23_dy
+  workArea: CRAB_2023preBPix_XCone_RecoAndGen/mc_summer23_dy
   storageSite: T3_CH_CERNBOX
-  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2023preBPix_noLepVeto/DY #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/MC/2023preBPix/DY
+  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2023preBPix_version4Debug/DY #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/MC/2023preBPix/DY
   voGroup: null # or leave empty
 
   # Campaign specific
@@ -34,9 +34,11 @@ campaign:
     # /DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v1/MINIAODSIM
     # /DYto2L-2Jets_MLL-50_PTLL-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v1/MINIAODSIM
     
-    # /DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v4/MINIAODSIM
-    # /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14_ext1-v3/MINIAODSIM
-    /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v1/MINIAODSIM
+    /DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v4/MINIAODSIM
+    /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14_ext1-v3/MINIAODSIM
+    /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
+
+    
     # /DYto2Mu_MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v3/MINIAODSIM
     # /DYto2Mu_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
     # /DYto2Mu_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM

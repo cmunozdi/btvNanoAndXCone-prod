@@ -3,9 +3,9 @@ campaign:
   crab_template: template_crab.py
 
   # User specific
-  workArea: CRAB_2023preBPix_XCone_RecoAndGen_2dCut30_15JetPtThres_noLepVeto/data_2023_Muon
+  workArea: CRAB_2023preBPix_XCone_RecoAndGen/data_2023_Muon
   storageSite: T3_CH_CERNBOX
-  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/data/2023preBPix_15JetPtThres #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/Data/2023preBPix #/store/user/cmunozdi/AnalysisSamples/data/2023preBPix
+  outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/data/2023preBPix_version4Debug #/store/group/phys_top/RTU_topanalysis/cmunozdi/AnalysisSamples/Data/2023preBPix #/store/user/cmunozdi/AnalysisSamples/data/2023preBPix
   voGroup: null # or leave empty
 
   # Campaign specific
@@ -23,16 +23,16 @@ campaign:
   # it's better to request one dataset at a time (taking fairshare into account)
   datasets: |
     # /Muon0/Run2023B-22Sep2023-v1/MINIAOD
-    /Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD
-    /Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD
-    /Muon0/Run2023C-22Sep2023_v3-v1/MINIAOD
+    # /Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD
+    # /Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD
+    # /Muon0/Run2023C-22Sep2023_v3-v1/MINIAOD
     /Muon0/Run2023C-22Sep2023_v4-v1/MINIAOD
     # /Muon0/Run2023D-22Sep2023_v1-v1/MINIAOD
     # /Muon0/Run2023D-22Sep2023_v2-v1/MINIAOD
     # /Muon1/Run2023B-22Sep2023-v1/MINIAOD
-    /Muon1/Run2023C-22Sep2023_v1-v1/MINIAOD
-    /Muon1/Run2023C-22Sep2023_v2-v1/MINIAOD
-    /Muon1/Run2023C-22Sep2023_v3-v1/MINIAOD
+    # /Muon1/Run2023C-22Sep2023_v1-v1/MINIAOD
+    # /Muon1/Run2023C-22Sep2023_v2-v1/MINIAOD
+    # /Muon1/Run2023C-22Sep2023_v3-v1/MINIAOD
     /Muon1/Run2023C-22Sep2023_v4-v2/MINIAOD
     # /Muon1/Run2023D-22Sep2023_v1-v1/MINIAOD
     # /Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD
