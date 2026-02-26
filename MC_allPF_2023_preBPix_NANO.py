@@ -19,6 +19,7 @@ process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('PhysicsTools.NanoAOD.nano_cff')
+process.load('HLTrigger.HLTfilters.hltHighLevel_cfi')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
@@ -31,7 +32,8 @@ process.maxEvents = cms.untracked.PSet(
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
         ##TTBAR
-        "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0a66bac8-1932-4250-978e-93334cbefbc3.root", #27k
+        "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0092e4e1-8cb2-4c2f-b57a-4fa2f42a517f.root",
+        # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0a66bac8-1932-4250-978e-93334cbefbc3.root", #27k
         # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0a6ce090-6ccd-443c-b438-6811140d27ae.root", #27k
         # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0c7b8c74-be41-4b10-ad82-eff4632b86b1.root", #12k
         # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0cb3154d-f1db-4ac1-90b2-8a024405ac82.root", # 39k
@@ -65,29 +67,53 @@ process.source = cms.Source("PoolSource",
     secondaryFileNames = cms.untracked.vstring()
 )
 
-process.ak8JetsPt300 = cms.EDFilter(
+process.ak8JetsPt270 = cms.EDFilter(
     "CandViewSelector",
     src = cms.InputTag("slimmedJetsAK8"),
-    cut = cms.string("pt > 300")
+    cut = cms.string("pt > 270")
 )
 
-process.genAk8JetsPt300 = cms.EDFilter(
+process.genAk8JetsPt270 = cms.EDFilter(
     "CandViewSelector",
     src = cms.InputTag("slimmedGenJetsAK8"),
-    cut = cms.string("pt > 300")
+    cut = cms.string("pt > 270")
 )
 
-process.ak8OrGenAk8JetsPt300 = cms.EDProducer(
+process.ak8OrGenAk8JetsPt270 = cms.EDProducer(
     "CandViewMerger",
     src = cms.VInputTag(
-        cms.InputTag("ak8JetsPt300"),
-        cms.InputTag("genAk8JetsPt300")
+        cms.InputTag("ak8JetsPt270"),
+        cms.InputTag("genAk8JetsPt270")
     )
 )
 
-process.atLeastOneAk8OrGenAk8JetPt300 = cms.EDFilter(
+process.atLeastOneAk8OrGenAk8JetPt270 = cms.EDFilter(
     "CandViewCountFilter",
-    src = cms.InputTag("ak8OrGenAk8JetsPt300"),
+    src = cms.InputTag("ak8OrGenAk8JetsPt270"),
+    minNumber = cms.uint32(1)
+)
+
+process.hltEventSelection = process.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults", "", "HLT"),
+    HLTPaths = cms.vstring(
+        "HLT_Mu50_v*",
+        "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*",
+        "HLT_Photon200_v*",
+        "HLT_Ele30_WPTight_Gsf_v*"
+    ),
+    andOr = cms.bool(True),
+    throw = cms.bool(False)
+)
+
+process.genLeptonsPt50 = cms.EDFilter(
+    "CandViewSelector",
+    src = cms.InputTag("prunedGenParticles"),
+    cut = cms.string("pt > 50 && (abs(pdgId) == 11 || abs(pdgId) == 13)")
+)
+
+process.atLeastOneGenLeptonPt50 = cms.EDFilter(
+    "CandViewCountFilter",
+    src = cms.InputTag("genLeptonsPt50"),
     minNumber = cms.uint32(1)
 )
 
@@ -120,7 +146,7 @@ process.options = cms.untracked.PSet(
     printDependencies = cms.untracked.bool(False),
     sizeOfStackForThreadsInKB = cms.optional.untracked.uint32,
     throwIfIllegalParameter = cms.untracked.bool(True),
-    wantSummary = cms.untracked.bool(False)
+    wantSummary = cms.untracked.bool(True)
 )
 
 # Production Info
@@ -140,7 +166,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         filterName = cms.untracked.string('')
     ),
     fileName = cms.untracked.string('MC_allPF_2023_preBPix_NANO.root'),
-    # fileName = cms.untracked.string('/eos/user/c/cmunozdi/tmp/MC_allPF_2023_preBPix_qcdmuextra_NANO_tightselec.root'),
+    # fileName = cms.untracked.string('/eos/user/c/cmunozdi/tmp/MC_allPF_2023_preBPix_qcdmuextra_NANO_tightselec_afterGenlep.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands
 )
 
@@ -151,22 +177,34 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2023_realistic', '')
 
 # Path and EndPath definitions
-process.nanoAOD_step = cms.Path(
-    process.ak8JetsPt300+
-    process.genAk8JetsPt300+
-    process.ak8OrGenAk8JetsPt300+
-    process.atLeastOneAk8OrGenAk8JetPt300+
+process.nanoAOD_step_trigger = cms.Path(
+    process.ak8JetsPt270+
+    process.genAk8JetsPt270+
+    process.ak8OrGenAk8JetsPt270+
+    process.atLeastOneAk8OrGenAk8JetPt270+
+    process.hltEventSelection+
     process.nanoSequenceMC
 )
+
+process.nanoAOD_step_genlep = cms.Path(
+    process.ak8JetsPt270+
+    process.genAk8JetsPt270+
+    process.ak8OrGenAk8JetsPt270+
+    process.atLeastOneAk8OrGenAk8JetPt270+
+    process.genLeptonsPt50+
+    process.atLeastOneGenLeptonPt50+
+    process.nanoSequenceMC
+)
+
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.NANOAODSIMoutput_step = cms.EndPath(process.NANOAODSIMoutput)
 
 process.NANOAODSIMoutput.SelectEvents = cms.untracked.PSet(
-    SelectEvents = cms.vstring('nanoAOD_step')
+    SelectEvents = cms.vstring('nanoAOD_step_trigger', 'nanoAOD_step_genlep')
 )
 
 # Schedule definition
-process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOAODSIMoutput_step)
+process.schedule = cms.Schedule(process.nanoAOD_step_trigger,process.nanoAOD_step_genlep,process.endjob_step,process.NANOAODSIMoutput_step)
 from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 

@@ -18,6 +18,7 @@ process.load('Configuration.EventContent.EventContent_cff')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('PhysicsTools.NanoAOD.nano_cff')
+process.load('HLTrigger.HLTfilters.hltHighLevel_cfi')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
@@ -32,16 +33,28 @@ process.source = cms.Source("PoolSource",
     secondaryFileNames = cms.untracked.vstring()
 )
 
-process.ak8JetsPt300 = cms.EDFilter(
+process.ak8JetsPt270 = cms.EDFilter(
     "CandViewSelector",
     src = cms.InputTag("slimmedJetsAK8"),
-    cut = cms.string("pt > 300")
+    cut = cms.string("pt > 270")
 )
 
-process.atLeastOneAK8JetPt300 = cms.EDFilter(
+process.atLeastOneAK8JetPt270 = cms.EDFilter(
     "CandViewCountFilter",
-    src = cms.InputTag("ak8JetsPt300"),
+    src = cms.InputTag("ak8JetsPt270"),
     minNumber = cms.uint32(1)
+)
+
+process.hltEventSelection = process.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults", "", "HLT"),
+    HLTPaths = cms.vstring(
+        "HLT_Mu50_v*",
+        "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*",
+        "HLT_Photon200_v*",
+        "HLT_Ele30_WPTight_Gsf_v*"
+    ),
+    andOr = cms.bool(True),
+    throw = cms.bool(False)
 )
 
 process.options = cms.untracked.PSet(
@@ -104,8 +117,9 @@ process.GlobalTag = GlobalTag(process.GlobalTag, '140X_dataRun3_v17', '')
 
 # Path and EndPath definitions
 process.nanoAOD_step = cms.Path(
-    process.ak8JetsPt300+
-    process.atLeastOneAK8JetPt300+
+    process.hltEventSelection+
+    process.ak8JetsPt270+
+    process.atLeastOneAK8JetPt270+
     process.nanoSequence
 )
 process.endjob_step = cms.EndPath(process.endOfProcess)
