@@ -31,7 +31,7 @@ process.maxEvents = cms.untracked.PSet(
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
         ##TTBAR
-        # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0a66bac8-1932-4250-978e-93334cbefbc3.root", #27k
+        "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0a66bac8-1932-4250-978e-93334cbefbc3.root", #27k
         # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0a6ce090-6ccd-443c-b438-6811140d27ae.root", #27k
         # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0c7b8c74-be41-4b10-ad82-eff4632b86b1.root", #12k
         # "/store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/0cb3154d-f1db-4ac1-90b2-8a024405ac82.root", # 39k
@@ -54,15 +54,41 @@ process.source = cms.Source("PoolSource",
         #QCD extra 15to300 and 800toinf
         # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-15to20_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v3/2520000/00a76d11-1ab4-4d3d-a0fb-28186f592990.root", #29k done
         # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-20to30_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/090953ca-59db-472e-867e-69d8733b320e.root", #29k
-        "/store/mc/Run3Summer23MiniAODv4/QCD_PT-30to50_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2530000/0450bc9b-c5c2-4b59-a4b3-cf848d77493b.root", #12k
-        "/store/mc/Run3Summer23MiniAODv4/QCD_PT-50to80_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/09f0a32d-5070-4792-8962-a5f98745d3a8.root", #3k
-        "/store/mc/Run3Summer23MiniAODv4/QCD_PT-80to120_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/332463d1-d695-4d93-8b7e-01ef0a8d8ad3.root", #26k
-        "/store/mc/Run3Summer23MiniAODv4/QCD_PT-120to170_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/1cde0559-d349-4275-b1c2-6e0c675bbccf.root", #30k
-        "/store/mc/Run3Summer23MiniAODv4/QCD_PT-170to300_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/04c52fc4-f62a-4196-bf75-b33f357f4dc2.root", #26k
-        "/store/mc/Run3Summer23MiniAODv4/QCD_PT-800to1000_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/01264b19-e6e0-426d-be5d-25b8d587c179.root", #20k
-        "/store/mc/Run3Summer23MiniAODv4/QCD_PT-1000_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/004dcc2f-2f09-41c1-ab6e-4b85568a8032.root", #20k
+        # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-30to50_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2530000/0450bc9b-c5c2-4b59-a4b3-cf848d77493b.root", #12k
+        # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-50to80_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/09f0a32d-5070-4792-8962-a5f98745d3a8.root", #3k
+        # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-80to120_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/332463d1-d695-4d93-8b7e-01ef0a8d8ad3.root", #26k
+        # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-120to170_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/1cde0559-d349-4275-b1c2-6e0c675bbccf.root", #30k
+        # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-170to300_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/04c52fc4-f62a-4196-bf75-b33f357f4dc2.root", #26k
+        # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-800to1000_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/01264b19-e6e0-426d-be5d-25b8d587c179.root", #20k
+        # "/store/mc/Run3Summer23MiniAODv4/QCD_PT-1000_MuEnrichedPt5_TuneCP5_13p6TeV_pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2520000/004dcc2f-2f09-41c1-ab6e-4b85568a8032.root", #20k
         ),
     secondaryFileNames = cms.untracked.vstring()
+)
+
+process.ak8JetsPt300 = cms.EDFilter(
+    "CandViewSelector",
+    src = cms.InputTag("slimmedJetsAK8"),
+    cut = cms.string("pt > 300")
+)
+
+process.genAk8JetsPt300 = cms.EDFilter(
+    "CandViewSelector",
+    src = cms.InputTag("slimmedGenJetsAK8"),
+    cut = cms.string("pt > 300")
+)
+
+process.ak8OrGenAk8JetsPt300 = cms.EDProducer(
+    "CandViewMerger",
+    src = cms.VInputTag(
+        cms.InputTag("ak8JetsPt300"),
+        cms.InputTag("genAk8JetsPt300")
+    )
+)
+
+process.atLeastOneAk8OrGenAk8JetPt300 = cms.EDFilter(
+    "CandViewCountFilter",
+    src = cms.InputTag("ak8OrGenAk8JetsPt300"),
+    minNumber = cms.uint32(1)
 )
 
 process.options = cms.untracked.PSet(
@@ -114,7 +140,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         filterName = cms.untracked.string('')
     ),
     fileName = cms.untracked.string('MC_allPF_2023_preBPix_NANO.root'),
-    # fileName = cms.untracked.string('/eos/user/c/cmunozdi/AnalysisSamples/MC_allPF_2023_preBPix_qcdmuextra_NANO.root'),
+    # fileName = cms.untracked.string('/eos/user/c/cmunozdi/tmp/MC_allPF_2023_preBPix_qcdmuextra_NANO_tightselec.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands
 )
 
@@ -125,9 +151,19 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2023_realistic', '')
 
 # Path and EndPath definitions
-process.nanoAOD_step = cms.Path(process.nanoSequenceMC)
+process.nanoAOD_step = cms.Path(
+    process.ak8JetsPt300+
+    process.genAk8JetsPt300+
+    process.ak8OrGenAk8JetsPt300+
+    process.atLeastOneAk8OrGenAk8JetPt300+
+    process.nanoSequenceMC
+)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.NANOAODSIMoutput_step = cms.EndPath(process.NANOAODSIMoutput)
+
+process.NANOAODSIMoutput.SelectEvents = cms.untracked.PSet(
+    SelectEvents = cms.vstring('nanoAOD_step')
+)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOAODSIMoutput_step)

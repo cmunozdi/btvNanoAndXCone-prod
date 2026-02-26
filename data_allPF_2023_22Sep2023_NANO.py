@@ -32,6 +32,18 @@ process.source = cms.Source("PoolSource",
     secondaryFileNames = cms.untracked.vstring()
 )
 
+process.ak8JetsPt300 = cms.EDFilter(
+    "CandViewSelector",
+    src = cms.InputTag("slimmedJetsAK8"),
+    cut = cms.string("pt > 300")
+)
+
+process.atLeastOneAK8JetPt300 = cms.EDFilter(
+    "CandViewCountFilter",
+    src = cms.InputTag("ak8JetsPt300"),
+    minNumber = cms.uint32(1)
+)
+
 process.options = cms.untracked.PSet(
     IgnoreCompletely = cms.untracked.vstring(),
     Rethrow = cms.untracked.vstring(),
@@ -91,9 +103,17 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '140X_dataRun3_v17', '')
 
 # Path and EndPath definitions
-process.nanoAOD_step = cms.Path(process.nanoSequence)
+process.nanoAOD_step = cms.Path(
+    process.ak8JetsPt300+
+    process.atLeastOneAK8JetPt300+
+    process.nanoSequence
+)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.NANOAODoutput_step = cms.EndPath(process.NANOAODoutput)
+
+process.NANOAODoutput.SelectEvents = cms.untracked.PSet(
+    SelectEvents = cms.vstring('nanoAOD_step')
+)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOAODoutput_step)
