@@ -9,7 +9,7 @@ config.General.transferLogs = True
 config.JobType.pluginName = 'Analysis'
 config.JobType.disableAutomaticOutputCollection = True #This avoids to copy the output file from cmsRun to the crab output directory, although it is generated in the specific job crab workdir
 config.JobType.psetName = '_psetName_'
-config.JobType.maxMemoryMB = 5000 
+config.JobType.maxMemoryMB = 3500 
 config.JobType.numCores = 4
 config.JobType.allowUndistributedCMSSW = True
 
@@ -25,9 +25,11 @@ config.JobType.inputFiles = [
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark.so',
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark_Dict_rdict.pcm',
                                 f'{cmssw_base}/src/XConeReclustering/selection_helpers_BoostedTopQuark_Dict.cpp',
-                                f'{cmssw_base}/src/XConeReclustering/2023jec/jet_jerc.json.gz',
-                                f'{cmssw_base}/src/XConeReclustering/2023btag/btag_efficiencies_combined.json',
-                                f'{cmssw_base}/src/XConeReclustering/2023btag/btagging.json.gz',
+                                f'{cmssw_base}/src/XConeReclustering/jet_jerc.json.gz',
+                                # "/eos/project/r/rtu-topanalysis/cmunozdi/AnalysisSamples_JetTightIDNoLepVeto_Full/output_efficiencies_rdf_topSemi_2023preBPix/btag_efficiencies_combined.json",
+                                # f'{cmssw_base}/src/XConeReclustering/2023jec/jet_jerc.json.gz',
+                                # f'{cmssw_base}/src/XConeReclustering/2023btag/btag_efficiencies_combined.json',
+                                # f'{cmssw_base}/src/XConeReclustering/2023btag/btagging.json.gz',
                             ]
 config.JobType.outputFiles = ['_outXConeFileName_']
 
