@@ -73,12 +73,25 @@ process.ak8JetsPt270 = cms.EDFilter(
     cut = cms.string("pt > 270")
 )
 
+process.atLeastOneAk8JetPt270 = cms.EDFilter(
+    "CandViewCountFilter",
+    src = cms.InputTag("ak8JetsPt270"),
+    minNumber = cms.uint32(1)
+)
+
 process.genAk8JetsPt270 = cms.EDFilter(
     "CandViewSelector",
     src = cms.InputTag("slimmedGenJetsAK8"),
     cut = cms.string("pt > 270")
 )
 
+process.atLeastOneGenAk8JetPt270 = cms.EDFilter(
+    "CandViewCountFilter",
+    src = cms.InputTag("genAk8JetsPt270"),
+    minNumber = cms.uint32(1)
+)
+
+# Combined filter not needed anymore, but kept for reference
 process.ak8OrGenAk8JetsPt270 = cms.EDProducer(
     "CandViewMerger",
     src = cms.VInputTag(
@@ -177,34 +190,47 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2023_realistic', '')
 
 # Path and EndPath definitions
-process.nanoAOD_step_trigger = cms.Path(
-    process.ak8JetsPt270+
-    process.genAk8JetsPt270+
-    process.ak8OrGenAk8JetsPt270+
-    process.atLeastOneAk8OrGenAk8JetPt270+
-    process.hltEventSelection+
+# Keep the weight accumulators at the front so that we keep the correct genEventCount and genEventSumw
+process.weightSequence = cms.Sequence(process.genWeightsTable)
+if hasattr(process, 'lheInfoTable'):
+    process.weightSequence += process.lheInfoTable
+
+# Define the Reco-level path
+process.nanoAOD_step_reco = cms.Path(
+    process.weightSequence +
+    process.hltEventSelection +
+    process.ak8JetsPt270 +
+    process.atLeastOneAk8JetPt270 +
     process.nanoSequenceMC
 )
 
-process.nanoAOD_step_genlep = cms.Path(
-    process.ak8JetsPt270+
-    process.genAk8JetsPt270+
-    process.ak8OrGenAk8JetsPt270+
-    process.atLeastOneAk8OrGenAk8JetPt270+
-    process.genLeptonsPt50+
-    process.atLeastOneGenLeptonPt50+
+# Define the Gen-level path
+process.nanoAOD_step_gen = cms.Path(
+    process.weightSequence +
+    process.genLeptonsPt50 +
+    process.atLeastOneGenLeptonPt50 +
+    process.genAk8JetsPt270 +
+    process.atLeastOneGenAk8JetPt270 +
     process.nanoSequenceMC
 )
 
+# EndPath definitions
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.NANOAODSIMoutput_step = cms.EndPath(process.NANOAODSIMoutput)
 
+# Configure the output module for the logical OR of both paths
 process.NANOAODSIMoutput.SelectEvents = cms.untracked.PSet(
-    SelectEvents = cms.vstring('nanoAOD_step_trigger', 'nanoAOD_step_genlep')
+    SelectEvents = cms.vstring('nanoAOD_step_reco', 'nanoAOD_step_gen')
 )
 
-# Schedule definition
-process.schedule = cms.Schedule(process.nanoAOD_step_trigger,process.nanoAOD_step_genlep,process.endjob_step,process.NANOAODSIMoutput_step)
+# Final Schedule
+process.schedule = cms.Schedule(
+    process.nanoAOD_step_reco,
+    process.nanoAOD_step_gen,
+    process.endjob_step,
+    process.NANOAODSIMoutput_step
+)
+
 from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 
