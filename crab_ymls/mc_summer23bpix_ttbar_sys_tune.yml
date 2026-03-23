@@ -1,9 +1,9 @@
 campaign:
-  name: mc_summer23bpix_ttbar
+  name: mc_summer23bpix_ttbar_sys_tune
   crab_template: template_crab.py
 
   # User specific
-  workArea: CRAB_2023BPix_XCone/mc_summer23bpix_ttbar
+  workArea: CRAB_2023BPix_XCone/mc_summer23bpix_ttbar_sys_tune
   storageSite: T3_CH_CERNBOX
   outLFNDirBase: /store/user/cmunozdi/AnalysisSamples/MC/2023postBPix/TTbar
   voGroup: null # or leave empty
@@ -22,6 +22,8 @@ campaign:
   # wait for tasks to finish before submitting entire campaigns,
   # it's better to request one dataset at a time (taking fairshare into account)
   datasets: |
-    /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
-    /TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
-    /TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+    /TTtoLNu2Q_TuneCP5CR1_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+    /TTtoLNu2Q_TuneCP5CR2_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+    /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+    /TTtoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+    /TTtoLNu2Q_TuneCP5_ERDOn_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
