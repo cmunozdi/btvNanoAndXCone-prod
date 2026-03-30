@@ -116,7 +116,7 @@ if args.make:
 
         if card['campaign']['data']:
             verbatim_lines.append("config.Data.unitsPerJob = 200")
-            verbatim_lines.append("config.JobType.maxJobRuntimeMin = 400")
+            verbatim_lines.append("config.JobType.maxJobRuntimeMin = 600")
         # if not card['campaign']['data']:
         #     verbatim_lines.append("config.Data.unitsPerJob = 600")
             # verbatim_lines.append("config.JobType.maxJobRuntimeMin = 400")
